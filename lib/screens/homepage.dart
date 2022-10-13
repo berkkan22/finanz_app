@@ -5,6 +5,8 @@ import 'package:finanz_app/models/konten.dart';
 import 'package:finanz_app/screens/add_transaktion_page.dart';
 import 'package:finanz_app/screens/konten_consumer.dart';
 import 'package:finanz_app/screens/transaktion_consumer.dart';
+import 'package:finanz_app/state_notifier/chart_notifier.dart';
+import 'package:finanz_app/state_notifier/transaktion_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:custom_floating_action_button/custom_floating_action_button.dart';
@@ -19,9 +21,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     context.read(kontenNotifierProvider.notifier).getFromDB();
+    context.read(transaktionNotifierProvider.notifier).getFromDB();
+    context.read(chartProviderNotifier.notifier).getTotalAmount();
     super.initState();
   }
 
@@ -29,7 +35,67 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return CustomFloatingActionButton(
       body: Scaffold(
-        // drawer: ,
+        key: _globalKey,
+        drawer: Drawer(
+          child: ListView(
+            // Important: Remove any padding from the ListView.
+            padding: EdgeInsets.zero,
+            children: [
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: Text('Drawer Header'),
+              ),
+              ListTile(
+                title: const Text('Delete Konten'),
+                onTap: () {
+                  // Update the state of the app.
+                  // ...
+                  context.read(kontenNotifierProvider.notifier).deletedAll();
+                },
+              ),
+              ListTile(
+                title: const Text('Delete Transaktion'),
+                onTap: () {
+                  // Update the state of the app.
+                  // ...
+                  context
+                      .read(transaktionNotifierProvider.notifier)
+                      .deletedAll();
+                },
+              ),
+              ListTile(
+                title: const Text('Dashboard'),
+                onTap: () {
+                  // Update the state of the app.
+                  // ...
+                },
+              ),
+              ListTile(
+                title: const Text('Arbeitszeiten'),
+                onTap: () {
+                  // Update the state of the app.
+                  // ...
+                },
+              ),
+              ListTile(
+                title: const Text('Goldkurs'),
+                onTap: () {
+                  // Update the state of the app.
+                  // ...
+                },
+              ),
+              ListTile(
+                title: const Text('Spenden (Zekat) rechner'),
+                onTap: () {
+                  // Update the state of the app.
+                  // ...
+                },
+              ),
+            ],
+          ),
+        ),
         // appBar: AppBar(
         //   title: const Text("Finanz App"),
         //   leading: IconButton(
@@ -74,7 +140,9 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  _globalKey.currentState?.openDrawer();
+                                },
                                 icon: const Icon(Icons.menu),
                                 color: white,
                               ),
@@ -109,7 +177,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(16),
                           alignment: const Alignment(0, 0.99),
                           child: const InfoCard(),
                         )

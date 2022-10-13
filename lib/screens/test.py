@@ -48,7 +48,7 @@
 # test(a)
 
 
-def write():
+# def write():
   # schreibe in die datei
   # openFile()
   # file.write(content)
@@ -57,3 +57,9 @@ def write():
 # abfrage vom file
 # abfrage was reingeschrieben werden soll
 # rufe write auf mti dem datei namen und dem content
+
+
+sonderzeichen = "12345"
+
+for s in sonderzeichen:
+  print(s)

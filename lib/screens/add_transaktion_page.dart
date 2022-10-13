@@ -3,6 +3,7 @@ import 'package:finanz_app/components/keyboard_key.dart';
 import 'package:finanz_app/components/scrollable_row_chips.dart';
 import 'package:finanz_app/models/konten.dart';
 import 'package:finanz_app/state_notifier/calculation_notifier.dart';
+import 'package:finanz_app/state_notifier/chart_notifier.dart';
 import 'package:finanz_app/state_notifier/transaktion_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -347,6 +348,10 @@ class _AddTransaktionPageState extends State<AddTransaktionPage> {
                                 context
                                     .read(calculationNotifierProvider.notifier)
                                     .setInit();
+
+                                context
+                                    .read(chartProviderNotifier.notifier)
+                                    .getTotalAmount();
 
                                 Navigator.pop(context);
                                 Navigator.pop(context);

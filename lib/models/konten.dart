@@ -142,7 +142,7 @@ enum Kategorie {
 
 extension ParseToNameKategorie on Kategorie {
   String toName() {
-    return toString().split('.').last;
+    return "${toString().split('.').last[0].toUpperCase()}${toString().substring(11).toLowerCase()}";
   }
 }
 

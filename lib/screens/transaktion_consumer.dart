@@ -16,21 +16,21 @@ class TransaktionConsumer extends StatelessWidget {
 
         if (transaktionsState is TransaktionInitialState) {
           return Container(
-            padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
             child: TransaktionPage(
               transaktionState: transaktionsState,
             ),
           );
         } else if (transaktionsState is TransaktionLoadingState) {
           return Container(
-            padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
             child: TransaktionPage(
               transaktionState: transaktionsState,
             ),
           );
         } else if (transaktionsState is TransaktionLoadedState) {
           return Container(
-            padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
             child: TransaktionPage(
               transaktionState: transaktionsState,
               transaktionsList: transaktionsState.transaktionList,

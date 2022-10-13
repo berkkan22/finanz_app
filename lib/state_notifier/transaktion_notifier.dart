@@ -1,3 +1,4 @@
+import 'package:finanz_app/core/globals.dart';
 import 'package:finanz_app/models/konten.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -34,7 +35,7 @@ class TransaktionStateNotifier extends StateNotifier<TransaktionState> {
   Future<void> getFromDB() async {
     state = const TransaktionLoadingState();
 
-    final box = Hive.box("transaktions");
+    final box = Hive.box(hiveTransaktionBox);
 
     final List<Transaktion> transaktionData = box.keys.map((key) {
       final Transaktion value = box.get(key);

@@ -4,13 +4,13 @@ import 'package:flutter/cupertino.dart';
 
 import 'models/pie_data.dart';
 
-List<PieChartSectionData> getSections() => PieData.data
+List<PieChartSectionData> getSections(List<Data> data) => data
     .asMap()
     .map<int, PieChartSectionData>((key, data) {
       final value = PieChartSectionData(
         color: data.color,
         value: data.percent,
-        title: "10%",
+        title: data.percent.toStringAsFixed(2),
         radius: 25,
         titleStyle: const TextStyle(
           fontSize: 14,

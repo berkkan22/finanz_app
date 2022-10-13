@@ -17,7 +17,7 @@ class TransaktionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.fromLTRB(12, 16, 12, 0),
       decoration: BoxDecoration(
         color: primary2,
         borderRadius: BorderRadius.circular(10),
@@ -54,10 +54,13 @@ class TransaktionPage extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           transaktionState is TransaktionInitialState
-              ? const Text(
-                  "Es stehen noch keine Transaktionen an!",
-                  style: TextStyle(
-                    color: white,
+              ? Container(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                  child: const Text(
+                    "Es stehen noch keine Transaktionen an!",
+                    style: TextStyle(
+                      color: white,
+                    ),
                   ),
                 )
               : transaktionState is TransaktionLoadingState
@@ -65,8 +68,13 @@ class TransaktionPage extends StatelessWidget {
                   : SizedBox(
                       // TODO: height anpassen weil es zum ende hin weniger wird
                       height: transaktionsList!.length <= 4
-                          ? 20 + (70 * transaktionsList!.length).toDouble()
-                          : 370,
+                          ? (65 * transaktionsList!.length).toDouble()
+                          : (65 * 5).toDouble(),
+
+                      //330,
+                      // transaktionsList!.length <= 4
+                      // 10 + (60 * (transaktionsList!.length)).toDouble(),
+                      // : 330,
                       child: ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: transaktionsList!.length <= 4
