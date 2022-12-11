@@ -77,6 +77,12 @@ class KontenStateNotifier extends StateNotifier<KontenState> {
 
     return kontenData;
   }
+
+  int getKontenLength() {
+    final box = Hive.box('konten');
+
+    return box.length;
+  }
 }
 
 

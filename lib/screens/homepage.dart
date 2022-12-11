@@ -53,6 +53,7 @@ class _HomePageState extends State<HomePage> {
                   // Update the state of the app.
                   // ...
                   context.read(kontenNotifierProvider.notifier).deletedAll();
+                  context.read(chartProviderNotifier.notifier).getTotalAmount();
                 },
               ),
               ListTile(
@@ -63,6 +64,8 @@ class _HomePageState extends State<HomePage> {
                   context
                       .read(transaktionNotifierProvider.notifier)
                       .deletedAll();
+
+                  context.read(chartProviderNotifier.notifier).getTotalAmount();
                 },
               ),
               ListTile(

@@ -4,11 +4,11 @@ import 'package:finanz_app/models/konten.dart';
 import 'package:finanz_app/state_notifier/transaktion_notifier.dart';
 import 'package:flutter/material.dart';
 
-class TransaktionPage extends StatelessWidget {
+class TransaktionContainer extends StatelessWidget {
   final List<Transaktion>? transaktionsList;
   final transaktionState;
 
-  const TransaktionPage({
+  const TransaktionContainer({
     Key? key,
     required this.transaktionState,
     this.transaktionsList,
@@ -44,6 +44,8 @@ class TransaktionPage extends StatelessWidget {
                 splashRadius: 20,
                 onPressed: () {
                   debugPrint("Show more");
+                  // push name route
+                  Navigator.pushNamed(context, '/transaktionPage');
                 },
                 icon: const Icon(
                   Icons.zoom_out_map_rounded,

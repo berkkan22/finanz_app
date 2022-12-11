@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'screens/transaktions_page.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -43,6 +45,7 @@ class _MyAppState extends State<MyApp> {
         routes: {
           "/": (context) => const HomePage(),
           // "/addTransaktionPage": (context) => const AddTransaktionPage(),
+          "/transaktionPage": (context) => const TransaktionPage(),
         },
       ),
     );

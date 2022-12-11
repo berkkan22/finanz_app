@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
+
+var logger = Logger();
 
 const String hiveKontenBox = 'konten';
 const String hiveTransaktionBox = 'transaktions';

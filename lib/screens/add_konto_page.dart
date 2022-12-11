@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:finanz_app/core/functions.dart';
 import 'package:finanz_app/core/globals.dart';
 import 'package:finanz_app/models/konten.dart';
@@ -23,6 +25,7 @@ class _AddKontoPageState extends State<AddKontoPage> {
   // create some values
   Color pickerColor = const Color(0xff443a49);
   Color currentColor = const Color(0xff443a49);
+  bool wasColorPicked = false;
 
 // ValueChanged<Color> callback
   void changeColor(Color color) {
@@ -118,9 +121,12 @@ class _AddKontoPageState extends State<AddKontoPage> {
                       ),
                       actions: <Widget>[
                         ElevatedButton(
-                          child: const Text('Got it'),
+                          child: const Text('Fertig'),
                           onPressed: () {
-                            setState(() => currentColor = pickerColor);
+                            setState(() {
+                              currentColor = pickerColor;
+                              wasColorPicked = true;
+                            });
                             Navigator.of(context).pop();
                           },
                         ),
@@ -153,8 +159,6 @@ class _AddKontoPageState extends State<AddKontoPage> {
           ),
           ElevatedButton(
             onPressed: () {
-              print(_kontoNameController.text);
-              print(_betragController.text);
               late KontoType kontoType;
 
               // TODO: make logic to add
@@ -174,14 +178,28 @@ class _AddKontoPageState extends State<AddKontoPage> {
                     toastMsg("Bitte gebe ein Betrag ein");
                   }
 
+                  // random color
+                  Color randomColor = Colors
+                      .primaries[Random().nextInt(Colors.primaries.length)];
+
+                  int nextOrderInLine = context
+                          .read(kontenNotifierProvider.notifier)
+                          .getKontenLength() +
+                      1;
+
+                  //  all log messages in one place with new line
+                  logger.d(
+                      """kontotyp: $selectedValue\nkontoname: ${_kontoNameController.text}\nbetrag: ${_betragController.text}\ncolor: ${currentColor.value}\norder: $nextOrderInLine""");
+
                   Konten konto = Konten(
                     name: _kontoNameController.text,
                     type: kontoType,
                     isHauptKonto: false,
                     insgesamt: double.parse(_betragController.text),
-                    color: currentColor.value,
+                    color:
+                        wasColorPicked ? currentColor.value : randomColor.value,
                     // TODO: get len of konten
-                    order: 1,
+                    order: nextOrderInLine,
                   );
 
                   context.read(kontenNotifierProvider.notifier).add(konto);

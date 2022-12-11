@@ -145,7 +145,25 @@ class InfoCard extends StatelessWidget {
                   top: 8,
                   width: 130,
                   height: 130,
-                  child: Chart(data: chartState.total),
+                  child: chartState.total[1] != 0 || chartState.total[2] != 0
+                      ? Chart(data: chartState.total)
+                      : Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: const [
+                              CircularProgressIndicator(),
+                              SizedBox(height: 8),
+                              Text(
+                                "Keine Daten vorhanden",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                 ),
                 Positioned(
                   top: -8,
@@ -161,8 +179,13 @@ class InfoCard extends StatelessWidget {
               ],
             ),
           );
+        } else if (chartState is ChartErrorState) {
+          logger.e("Error: ${chartState.error}");
+          return const Text("Ein Fehler ist aufgetreten");
+        } else if (chartState is ChartLoadingState) {
+          return const CircularProgressIndicator();
         } else {
-          return const Text("data");
+          return const Text("Es ist ein großer Fehler aufgetreten");
         }
       },
     );
