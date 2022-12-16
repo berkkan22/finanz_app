@@ -15,6 +15,17 @@ String getKontoNameFromId(int id) {
   return "Konto nicht gefunden";
 }
 
+List<Kategorie> getAllKategorien() {
+  var box = Hive.box(hiveKategorieBox);
+
+  List<Kategorie> kategorien = box.keys.map((key) {
+    Kategorie value = box.get(key);
+    return value;
+  }).toList();
+
+  return kategorien.isNotEmpty ? kategorien : listOfKategories;
+}
+
 toastMsg(String msg) {
   Fluttertoast.showToast(
     msg: msg,

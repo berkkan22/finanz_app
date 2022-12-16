@@ -117,27 +117,21 @@ enum TransaktionsType {
 /// shoping
 /// Muss auch eine class sein damit man es einspeichern kann
 @HiveType(typeId: 6)
-enum Kategorie {
+class Kategorie {
   @HiveField(0)
-  shopping,
+  String name;
 
   @HiveField(1)
-  food,
+  int color;
 
   @HiveField(2)
-  bills,
+  String iconName;
 
-  @HiveField(3)
-  entertainment,
-
-  @HiveField(4)
-  transport,
-
-  @HiveField(5)
-  medikamente,
-
-  @HiveField(6)
-  addOwn,
+  Kategorie({
+    required this.name,
+    required this.color,
+    required this.iconName,
+  });
 }
 
 extension ParseToNameKategorie on Kategorie {

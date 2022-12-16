@@ -10,8 +10,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AddTransaktionPage extends StatefulWidget {
   final List<Konten> kontenList;
+  final List<Kategorie> kategorieList;
 
-  const AddTransaktionPage({Key? key, required this.kontenList})
+  const AddTransaktionPage(
+      {Key? key, required this.kontenList, required this.kategorieList})
       : super(key: key);
 
   @override
@@ -21,7 +23,8 @@ class AddTransaktionPage extends StatefulWidget {
 class _AddTransaktionPageState extends State<AddTransaktionPage> {
   List<bool> selectedKontoBool = [];
   List<Konten> selectedKonto = [];
-  List<bool> selectedKategorie = [];
+  List<bool> selectedKategorieBool = [];
+  List<Kategorie> selectedKategorie = [];
   int betrag = 0;
   int tabBarIndex = 0;
 
@@ -40,8 +43,9 @@ class _AddTransaktionPageState extends State<AddTransaktionPage> {
       // }
     }
 
-    for (Kategorie item in Kategorie.values) {
-      selectedKategorie.add(false);
+    for (Kategorie kategorie in widget.kategorieList) {
+      selectedKategorieBool.add(false);
+      selectedKategorie.add(kategorie);
     }
     super.initState();
   }
@@ -137,11 +141,11 @@ class _AddTransaktionPageState extends State<AddTransaktionPage> {
               },
             ),
             ScrollableRowOfChips(
-              chipListKategorie: Kategorie.values,
-              selected: selectedKategorie,
+              chipListKategorie: selectedKategorie,
+              selected: selectedKategorieBool,
               callback: (list) {
                 setState(() {
-                  selectedKategorie = list;
+                  selectedKategorieBool = list;
                 });
               },
             ),
@@ -343,9 +347,10 @@ class _AddTransaktionPageState extends State<AddTransaktionPage> {
                                               .id ??
                                           -1
                                       : -1,
-                                  kategorie: selectedKategorie.contains(true)
-                                      ? Kategorie.values[
-                                          selectedKategorie.indexOf(true)]
+                                  kategorie: selectedKategorieBool
+                                          .contains(true)
+                                      ? selectedKategorie[
+                                          selectedKategorieBool.indexOf(true)]
                                       : null,
                                 );
                                 context

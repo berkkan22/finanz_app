@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:finanz_app/models/konten.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +49,7 @@ class _ScrollableRowOfChipsState extends State<ScrollableRowOfChips> {
                   backgroundColor: widget.selected[index]
                       ? Color(widget.chipListKonten != null
                           ? widget.chipListKonten![index].color
-                          : Random().nextInt(0xffffffff))
+                          : widget.chipListKategorie![index].color)
                       : Colors.transparent,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
@@ -64,7 +62,7 @@ class _ScrollableRowOfChipsState extends State<ScrollableRowOfChips> {
                   side: const BorderSide(color: Colors.black, width: 2),
                   label: Text(widget.chipListKonten != null
                       ? widget.chipListKonten![index].toName()
-                      : widget.chipListKategorie![index].toName()),
+                      : widget.chipListKategorie![index].name),
                 ),
               ),
               const SizedBox(width: 16),

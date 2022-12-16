@@ -35,7 +35,7 @@ class _ChartState extends State<Chart> {
         percent: (100 /
             widget.data[0] *
             (widget.data[0] - widget.data[1] - widget.data[2])),
-        color: Colors.grey,
+        color: Colors.black,
       ),
     );
 

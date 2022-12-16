@@ -1,3 +1,4 @@
+import 'package:finanz_app/models/konten.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
@@ -6,6 +7,7 @@ var logger = Logger();
 
 const String hiveKontenBox = 'konten';
 const String hiveTransaktionBox = 'transaktions';
+const String hiveKategorieBox = 'kategorie';
 
 final DateFormat formatter = DateFormat('dd.MM.yyyy');
 
@@ -39,4 +41,15 @@ const List<Color> colors = [
   Colors.grey,
   Colors.blueGrey,
   Colors.black,
+];
+
+List<Kategorie> listOfKategories = [
+  Kategorie(name: 'Essen', color: 0xFFE57373, iconName: 'fastfood'),
+  Kategorie(name: 'Shopping', color: 0xFFBA68C8, iconName: 'shopping_bag'),
+  Kategorie(name: 'Reisen', color: 0xFF64B5F6, iconName: 'car_crash'),
+  Kategorie(name: 'Geschenke', color: 0xFF81C784, iconName: 'wallet_giftcard'),
+  Kategorie(name: 'Gehalt', color: 0xFFFFB74D, iconName: 'work'),
+  Kategorie(
+      name: 'Sonstiges', color: 0xFFAED581, iconName: 'onetwothree_sharp'),
+  Kategorie(name: 'Hinzufügen', color: 0xFFAED581, iconName: 'add'),
 ];

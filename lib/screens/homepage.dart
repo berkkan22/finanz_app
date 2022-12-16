@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:custom_floating_action_button/custom_floating_action_button.dart';
 
+import '../core/functions.dart';
 import '../state_notifier/konten_notifier.dart';
 
 class HomePage extends StatefulWidget {
@@ -239,9 +240,11 @@ class _HomePageState extends State<HomePage> {
                     child: Wrap(
                       children: [
                         AddTransaktionPage(
-                            kontenList: context
-                                .read(kontenNotifierProvider.notifier)
-                                .getKonten()),
+                          kontenList: context
+                              .read(kontenNotifierProvider.notifier)
+                              .getKonten(),
+                          kategorieList: getAllKategorien(),
+                        ),
                       ],
                     ),
                   );

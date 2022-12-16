@@ -21,6 +21,7 @@ void main() async {
 
   await Hive.openBox(hiveKontenBox);
   await Hive.openBox(hiveTransaktionBox);
+  await Hive.openBox(hiveKategorieBox);
 
   runApp(const MyApp());
 }
@@ -51,3 +52,15 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
+
+
+
+
+// TODO: Delete singel Konto 
+// TODO: Delete singel transaktion
+// TODO: Mark Konto as Hauptkonto
+// TODO: Hauptkonto are shown on top
+// TODO: Change transaktion icon based on kategorie
+// TODO: See details of a transaktion (like: date, amount, etc.)
+// TODO: add Dauerauftrag and transfer and also make dauertransfer

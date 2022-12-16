@@ -102,6 +102,32 @@ class InfoCard extends StatelessWidget {
                               ),
                             ),
                           ],
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            Container(
+                              width: 10,
+                              height: 10,
+                              color: Colors.black,
+                            ),
+                            const SizedBox(width: 8),
+                            const Text(
+                              "Verfügbar: ",
+                              style: TextStyle(color: white, fontSize: 14),
+                            ),
+                            Text(
+                              (chartState.total[0] -
+                                      chartState.total[1] -
+                                      chartState.total[2])
+                                  .toString(),
+                              style: const TextStyle(
+                                color: white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         )
                       ],
                     ),

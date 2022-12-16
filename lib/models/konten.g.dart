@@ -119,6 +119,46 @@ class TransaktionAdapter extends TypeAdapter<Transaktion> {
           typeId == other.typeId;
 }
 
+class KategorieAdapter extends TypeAdapter<Kategorie> {
+  @override
+  final int typeId = 6;
+
+  @override
+  Kategorie read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return Kategorie(
+      name: fields[0] as String,
+      color: fields[1] as int,
+      iconName: fields[2] as String,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, Kategorie obj) {
+    writer
+      ..writeByte(3)
+      ..writeByte(0)
+      ..write(obj.name)
+      ..writeByte(1)
+      ..write(obj.color)
+      ..writeByte(2)
+      ..write(obj.iconName);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is KategorieAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
 class KontoTypeAdapter extends TypeAdapter<KontoType> {
   @override
   final int typeId = 3;
@@ -247,65 +287,6 @@ class TransaktionsTypeAdapter extends TypeAdapter<TransaktionsType> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is TransaktionsTypeAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class KategorieAdapter extends TypeAdapter<Kategorie> {
-  @override
-  final int typeId = 6;
-
-  @override
-  Kategorie read(BinaryReader reader) {
-    switch (reader.readByte()) {
-      case 0:
-        return Kategorie.shopping;
-      case 1:
-        return Kategorie.food;
-      case 2:
-        return Kategorie.bills;
-      case 3:
-        return Kategorie.entertainment;
-      case 4:
-        return Kategorie.transport;
-      case 5:
-        return Kategorie.addOwn;
-      default:
-        return Kategorie.shopping;
-    }
-  }
-
-  @override
-  void write(BinaryWriter writer, Kategorie obj) {
-    switch (obj) {
-      case Kategorie.shopping:
-        writer.writeByte(0);
-        break;
-      case Kategorie.food:
-        writer.writeByte(1);
-        break;
-      case Kategorie.bills:
-        writer.writeByte(2);
-        break;
-      case Kategorie.entertainment:
-        writer.writeByte(3);
-        break;
-      case Kategorie.transport:
-        writer.writeByte(4);
-        break;
-      case Kategorie.addOwn:
-        writer.writeByte(5);
-        break;
-    }
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is KategorieAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
