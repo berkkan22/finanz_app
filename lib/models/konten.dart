@@ -7,7 +7,7 @@ part 'konten.g.dart';
 @HiveType(typeId: 0)
 class Konten {
   @HiveField(0)
-  final int? id;
+  int? id;
 
   @HiveField(1)
   final String name;

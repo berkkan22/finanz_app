@@ -51,7 +51,9 @@ class TransaktionTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  transaktion.name ?? transaktion.kategorie!.toName(),
+                  transaktion.name ??
+                      transaktion.kategorie?.toName() ??
+                      "NO NAME",
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w500),
                 ),

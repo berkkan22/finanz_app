@@ -145,7 +145,9 @@ class InfoCard extends StatelessWidget {
                   top: 8,
                   width: 130,
                   height: 130,
-                  child: chartState.total[1] != 0 || chartState.total[2] != 0
+                  child: chartState.total[0] != 0 ||
+                          chartState.total[1] != 0 ||
+                          chartState.total[2] != 0
                       ? Chart(data: chartState.total)
                       : Center(
                           child: Column(

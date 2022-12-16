@@ -8,7 +8,7 @@ String getKontoNameFromId(int id) {
 
   for (int ids in box.keys) {
     if (ids == id) {
-      Konten konto = box.getAt(id);
+      Konten konto = box.get(id);
       return konto.name;
     }
   }

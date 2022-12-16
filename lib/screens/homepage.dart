@@ -54,6 +54,9 @@ class _HomePageState extends State<HomePage> {
                   // ...
                   context.read(kontenNotifierProvider.notifier).deletedAll();
                   context.read(chartProviderNotifier.notifier).getTotalAmount();
+                  context
+                      .read(transaktionNotifierProvider.notifier)
+                      .getFromDB();
                 },
               ),
               ListTile(

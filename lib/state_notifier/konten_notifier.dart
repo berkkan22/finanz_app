@@ -1,3 +1,4 @@
+import 'package:finanz_app/core/globals.dart';
 import 'package:finanz_app/models/konten.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -38,6 +39,7 @@ class KontenStateNotifier extends StateNotifier<KontenState> {
 
     final List<Konten> kontenData = box.keys.map((key) {
       final Konten value = box.get(key);
+      logger.d(key);
       return value;
     }).toList();
 
@@ -59,9 +61,33 @@ class KontenStateNotifier extends StateNotifier<KontenState> {
 
   Future<void> deletedAll() async {
     final box = Hive.box('konten');
+    final boxTrans = Hive.box('transaktions');
 
-    for (int key in box.keys) {
-      box.delete(key);
+    for (int keyKonto in box.keys) {
+      for (int keyTrans in boxTrans.keys) {
+        int transKontoId = boxTrans.get(keyTrans).vonKontoId;
+        if (boxTrans.get(keyTrans).vonKontoId == keyKonto) {
+          boxTrans.delete(keyTrans);
+        }
+      }
+
+      box.delete(keyKonto);
+    }
+
+    getFromDB();
+  }
+
+  Future<void> delete(int id) async {
+    final box = Hive.box('konten');
+
+    box.delete(id);
+
+    // delete all transactions from this konto
+    final boxTrans = Hive.box('transaktionen');
+    for (int key in boxTrans.keys) {
+      if (boxTrans.get(key).kontoId == id) {
+        boxTrans.delete(key);
+      }
     }
 
     getFromDB();
@@ -71,7 +97,9 @@ class KontenStateNotifier extends StateNotifier<KontenState> {
     final box = Hive.box('konten');
 
     final List<Konten> kontenData = box.keys.map((key) {
-      final Konten value = box.get(key);
+      Konten value = box.get(key);
+      value.id ??= key;
+
       return value;
     }).toList();
 
@@ -84,12 +112,3 @@ class KontenStateNotifier extends StateNotifier<KontenState> {
     return box.length;
   }
 }
-
-
-// @freezed
-// class ListState with _$ListState {
-//   const factory ListState.init() = Init;
-//   const factory ListState.loading() = Loading;
-//   const factory ListState.loaded(List<Konten> konten) = Loaded;
-//   const factory ListState.error(String? errorMessage) = Error;
-// }

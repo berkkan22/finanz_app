@@ -19,7 +19,8 @@ class AddTransaktionPage extends StatefulWidget {
 }
 
 class _AddTransaktionPageState extends State<AddTransaktionPage> {
-  List<bool> selectedKonto = [];
+  List<bool> selectedKontoBool = [];
+  List<Konten> selectedKonto = [];
   List<bool> selectedKategorie = [];
   int betrag = 0;
   int tabBarIndex = 0;
@@ -31,11 +32,12 @@ class _AddTransaktionPageState extends State<AddTransaktionPage> {
   @override
   void initState() {
     for (var konto in widget.kontenList) {
-      if (konto.isHauptKonto) {
-        selectedKonto.add(true);
-      } else {
-        selectedKonto.add(false);
-      }
+      // if (konto.isHauptKonto) {
+      //   selectedKonto.add(true);
+      // } else {
+      selectedKontoBool.add(false);
+      selectedKonto.add(konto);
+      // }
     }
 
     for (Kategorie item in Kategorie.values) {
@@ -104,10 +106,10 @@ class _AddTransaktionPageState extends State<AddTransaktionPage> {
             const SizedBox(height: 8),
             ScrollableRowOfChips(
               chipListKonten: widget.kontenList,
-              selected: selectedKonto,
+              selected: selectedKontoBool,
               callback: (list) {
                 setState(() {
-                  selectedKonto = list;
+                  selectedKontoBool = list;
                 });
               },
             ),
@@ -334,8 +336,12 @@ class _AddTransaktionPageState extends State<AddTransaktionPage> {
                                   transaktionsType: tabBarIndex == 0
                                       ? TransaktionsType.einnahme
                                       : TransaktionsType.ausgabe,
-                                  vonKontoId: selectedKonto.contains(true)
-                                      ? selectedKonto.indexOf(true)
+                                  // FIXME: fehler mit konto nicht gefunden
+                                  vonKontoId: selectedKontoBool.contains(true)
+                                      ? selectedKonto[selectedKontoBool
+                                                  .indexOf(true)]
+                                              .id ??
+                                          -1
                                       : -1,
                                   kategorie: selectedKategorie.contains(true)
                                       ? Kategorie.values[

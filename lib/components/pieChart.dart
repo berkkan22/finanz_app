@@ -28,6 +28,17 @@ class _ChartState extends State<Chart> {
         ),
       );
     }
+
+    pieData.add(
+      Data(
+        type: 0,
+        percent: (100 /
+            widget.data[0] *
+            (widget.data[0] - widget.data[1] - widget.data[2])),
+        color: Colors.grey,
+      ),
+    );
+
     return SizedBox(
       child: PieChart(
         PieChartData(
