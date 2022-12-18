@@ -1,10 +1,10 @@
 import 'package:finanz_app/core/globals.dart';
 import 'package:finanz_app/models/konten.dart';
-import 'package:finanz_app/screens/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'new_simple_designe/screens/dashboard.dart';
 import 'screens/transaktions_page.dart';
 
 void main() async {
@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
         ),
         initialRoute: '/',
         routes: {
-          "/": (context) => const HomePage(),
+          "/": (context) => const Dashboard(),
           // "/addTransaktionPage": (context) => const AddTransaktionPage(),
           "/transaktionPage": (context) => const TransaktionPage(),
         },
